@@ -216,15 +216,11 @@ I still do.
 
 function readerNote() {
 
-  const text =
-    readerNotes[Math.floor(Math.random() * readerNotes.length)];
+  const box = document.getElementById("reader-result");
 
-  typeWriter(
-    document.getElementById("reader-result"),
-    text
-  );
+  box.innerHTML = "<h3>HELLO</h3>";
+
 }
-
 /* ---------- NATURE ---------- */
 
 function nextNature() {
