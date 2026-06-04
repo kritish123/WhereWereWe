@@ -1,0 +1,276 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f6f1e7;
+    color:#2f2a24;
+    font-family:'Cormorant Garamond', serif;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* LOGIN */
+
+.screen{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.login-box{
+    width:100%;
+    max-width:550px;
+    background:#fffdf9;
+    border:1px solid #d9cfbf;
+    border-radius:16px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.login-box h1{
+    font-size:3rem;
+    margin-bottom:20px;
+}
+
+.login-box p{
+    margin-bottom:15px;
+    line-height:1.7;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #cbbda7;
+    font-size:1rem;
+    margin-bottom:15px;
+    background:#faf7f0;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    margin:5px;
+    background:#4e4337;
+    color:white;
+    font-size:1rem;
+    transition:.25s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    opacity:.92;
+}
+
+.hint-btn{
+    background:#8a775e;
+}
+
+#hint{
+    margin-top:15px;
+    color:#6f5f4a;
+}
+
+#login-error{
+    color:#a04545;
+    margin-top:10px;
+}
+
+.hidden{
+    display:none;
+}
+
+/* HEADER */
+
+header{
+    padding:50px 20px 30px;
+    text-align:center;
+}
+
+header h1{
+    font-size:4rem;
+    margin-bottom:20px;
+    font-family:'Special Elite', cursive;
+}
+
+.progress-wrap{
+    font-size:1.1rem;
+    opacity:.8;
+}
+
+/* BOOKSHELF */
+
+.bookshelf{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+    padding:20px;
+}
+
+.book{
+    background:#fffdf8;
+    border-left:8px solid #6d5d4b;
+    border-radius:12px;
+    padding:25px;
+    cursor:pointer;
+    font-size:1.3rem;
+    transition:.25s;
+    box-shadow:0 8px 18px rgba(0,0,0,.06);
+}
+
+.book:hover{
+    transform:translateY(-4px);
+}
+
+.book::after{
+    content:" →";
+    opacity:.5;
+}
+
+/* CHAPTERS */
+
+.chapter{
+    display:none;
+    max-width:850px;
+    margin:40px auto;
+    padding:35px;
+    background:#fffdf9;
+    border-radius:20px;
+    border:1px solid #ddd1be;
+    box-shadow:0 12px 25px rgba(0,0,0,.05);
+}
+
+.chapter.active{
+    display:block;
+    animation:fadeIn .4s ease;
+}
+
+.chapter h2{
+    font-size:2.5rem;
+    margin-bottom:20px;
+}
+
+.chapter p{
+    font-size:1.25rem;
+    line-height:1.9;
+    margin-top:15px;
+}
+
+.back-btn{
+    margin-bottom:20px;
+    background:#84705b;
+}
+
+.chapter-img{
+    width:100%;
+    max-height:520px;
+    object-fit:cover;
+    border-radius:15px;
+    margin:20px 0;
+}
+
+/* RESULT BOXES */
+
+#reader-result,
+#nature-text,
+#star-report,
+#veg-result,
+#michael-result,
+#goofy-result,
+#writing-result{
+    margin-top:20px;
+    padding:20px;
+    background:#f7f2e8;
+    border-left:4px solid #8b7358;
+    border-radius:10px;
+    min-height:60px;
+    line-height:1.8;
+    font-size:1.15rem;
+}
+
+/* SECRET */
+
+#secret-text{
+    font-size:1.4rem;
+    text-align:center;
+    line-height:2;
+}
+
+footer{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.footer-secret{
+    cursor:pointer;
+    opacity:.4;
+    transition:.3s;
+    font-style:italic;
+}
+
+.footer-secret:hover{
+    opacity:1;
+}
+
+/* PAPER EFFECT */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+        radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+    background-size:12px 12px;
+    pointer-events:none;
+    opacity:.4;
+}
+
+/* FADE */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    header h1{
+        font-size:2.5rem;
+    }
+
+    .chapter{
+        margin:20px;
+        padding:20px;
+    }
+
+    .chapter h2{
+        font-size:2rem;
+    }
+
+    .chapter p{
+        font-size:1.1rem;
+    }
+
+    .book{
+        font-size:1.1rem;
+    }
+
+}
