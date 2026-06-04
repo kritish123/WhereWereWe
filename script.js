@@ -220,9 +220,10 @@ I still do.
 
 function readerNote() {
 
-  const box = document.getElementById("reader-result");
+  const text =
+    readerNotes[Math.floor(Math.random() * readerNotes.length)];
 
-  box.innerHTML = "<h3>HELLO</h3>";
+  document.getElementById("reader-result").textContent = text;
 
 }
 /* ---------- NATURE ---------- */
