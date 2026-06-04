@@ -1,4 +1,4 @@
-const PASSWORD = "Fuchhey";
+const PASSWORD = "Fucchey";
 
 let bookmarksFound = new Set();
 
