@@ -220,12 +220,16 @@ I still do.
 
 function readerNote() {
 
-  const box = document.getElementById("reader-result");
-
-  box.textContent =
+  const text =
     readerNotes[
       Math.floor(Math.random() * readerNotes.length)
     ];
+
+  typeWriter(
+    document.getElementById("reader-result"),
+    text,
+    20
+  );
 
 }
 /* ---------- NATURE ---------- */
