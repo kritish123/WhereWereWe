@@ -57,13 +57,23 @@ const unsaidNotes = [
 ];
 
 const starReportSteps = [
-  "Report Opened.",
-  "Several stars identified in the distance.",
-  "Witness statement recorded.",
-  "Further investigation underway.",
-  "Correction: They were seagulls.",
-  "Primary source laughed.",
-  "Case closed."
+
+  "22:17 — Several stars identified in the distance.",
+
+  "22:18 — Witness appears confident.",
+
+  "22:19 — Researcher remains unconvinced.",
+
+  "22:20 — Object movement detected.",
+
+  "22:21 — Stars appear to be flapping.",
+
+  "22:22 — Correction: They were seagulls.",
+
+  "22:23 — Witness laughing uncontrollably.",
+
+  "22:24 — Case closed."
+
 ];
 
 const michaelSteps = [
@@ -253,36 +263,64 @@ function goofyFact() {
 
 function nextStarReport() {
 
-  const text = starReportSteps[starIndex];
+  const box = document.getElementById("star-report");
 
-  typeWriter(
-    document.getElementById("star-report"),
-    text
-  );
+  const entry = document.createElement("div");
+
+  entry.textContent = "> " + starReportSteps[starIndex];
+
+  entry.style.marginBottom = "8px";
+
+  box.appendChild(entry);
 
   starIndex++;
 
-  if (starIndex >= starReportSteps.length) {
+  if(starIndex >= starReportSteps.length){
+
+    const end = document.createElement("div");
+
+    end.innerHTML =
+      "<br><strong>Investigation Archived.</strong>";
+
+    box.appendChild(end);
+
     starIndex = 0;
   }
+
 }
 
 /* ---------- MICHAEL ---------- */
 
 function nextMichael() {
 
-  const text = michaelSteps[michaelIndex];
+  const box =
+    document.getElementById("michael-result");
 
-  typeWriter(
-    document.getElementById("michael-result"),
-    text
-  );
+  const entry =
+    document.createElement("div");
+
+  entry.textContent =
+    "> " + michaelSteps[michaelIndex];
+
+  entry.style.marginBottom = "8px";
+
+  box.appendChild(entry);
 
   michaelIndex++;
 
-  if (michaelIndex >= michaelSteps.length) {
+  if(michaelIndex >= michaelSteps.length){
+
+    const end =
+      document.createElement("div");
+
+    end.innerHTML =
+      "<br><strong>Investigation Closed.</strong>";
+
+    box.appendChild(end);
+
     michaelIndex = 0;
   }
+
 }
 
 /* ---------- WRITING ---------- */
@@ -327,22 +365,35 @@ function nextUnsaid() {
 
 function nextNightNote() {
 
-  const text = nightNotes[nightIndex];
-
-  const el =
+  const box =
     document.getElementById("night-result");
 
-  if (el) {
-    typeWriter(el, text);
-  }
+  const entry =
+    document.createElement("div");
+
+  entry.textContent =
+    "• " + nightNotes[nightIndex];
+
+  entry.style.marginBottom = "12px";
+
+  box.appendChild(entry);
 
   nightIndex++;
 
-  if (nightIndex >= nightNotes.length) {
+  if(nightIndex >= nightNotes.length){
+
+    const end =
+      document.createElement("div");
+
+    end.innerHTML =
+      "<br><em>End of Entry.</em>";
+
+    box.appendChild(end);
+
     nightIndex = 0;
   }
-}
 
+}
 /* ---------- SECRET PHOTO ---------- */
 
 function unlockEvidence() {
