@@ -1,581 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For My Love</title>
-  <style>
-    * { box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Were We?</title>
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #eef5ef, #dfeadf, #f6faf6);
-      color: #2f4f3e;
-      min-height: 100vh;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet">
 
-    .screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .login-card,
-    .main-wrap {
-      width: 100%;
-      max-width: 920px;
-    }
-
-    .login-card {
-      background: rgba(255,255,255,0.92);
-      border-radius: 28px;
-      padding: 32px 24px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .login-card h1 {
-      margin-top: 0;
-      font-size: clamp(2rem, 4vw, 3rem);
-    }
-
-    .login-card p {
-      color: #5e7a6a;
-      line-height: 1.7;
-    }
-
-    .login-box {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    input {
-      padding: 14px 16px;
-      border-radius: 999px;
-      border: 2px solid #c9dbcf;
-      min-width: 260px;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    input:focus {
-      border-color: #7ea38b;
-    }
-
-    button {
-      border: none;
-      padding: 12px 18px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: bold;
-      margin: 5px;
-      background: #7ea38b;
-      color: white;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      box-shadow: 0 8px 20px rgba(126,163,139,0.3);
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-    }
-
-    .hint-btn {
-      background: white;
-      color: #4f6f5d;
-      border: 2px solid #c9dbcf;
-      box-shadow: none;
-    }
-
-    .hint-text,
-    .error-text,
-    .success-text {
-      margin-top: 14px;
-      min-height: 24px;
-      font-size: 0.98rem;
-    }
-
-    .hint-text { color: #6d8f7b; }
-    .error-text { color: #c25b5b; }
-    .success-text { color: #5a8f73; }
-
-    .hidden-screen { display: none; }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 22px 18px 40px;
-    }
-
-    h1, h2 { text-align: center; }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
-      margin: 15px 0;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 28px 20px;
-    }
-
-    .chat {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .msg {
-      max-width: 72%;
-      padding: 10px 14px;
-      border-radius: 16px;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .me { background: #dfeee3; align-self: flex-end; }
-    .her { background: #eef5ef; align-self: flex-start; }
-
-    .hidden {
-      display: none;
-      margin-top: 10px;
-      line-height: 1.7;
-      color: #4f6f5d;
-      background: #f3f8f4;
-      border: 1px solid #d9e7dc;
-      border-radius: 16px;
-      padding: 14px 16px;
-      transform: translateY(6px);
-      animation: popIn 0.28s ease;
-      min-height: 56px;
-      white-space: normal;
-      word-break: break-word;
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(10px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .hidden span { animation: blink 1s infinite; }
-
-    .blur-wrap {
-      position: relative;
-      display: inline-block;
-    }
-
-    .blurred {
-      filter: blur(8px);
-      transition: 0.3s ease;
-    }
-
-    .unlock-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.2);
-      border-radius: 18px;
-      color: white;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    .hidden span:nth-child(2) { animation-delay: 0.2s; }
-    .hidden span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes blink {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
-
-    .open-btn {
-      background: #fff;
-      color: #4f6f5d;
-      border: 2px solid #c9dbcf;
-      box-shadow: none;
-    }
-
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .mini-btn {
-      width: 100%;
-      padding: 18px 14px;
-      border-radius: 18px;
-      font-size: 0.98rem;
-      background: #eef5ef;
-      color: #4f6f5d;
-      border: 2px solid #c9dbcf;
-      box-shadow: none;
-    }
-
-    .result-box {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 16px;
-      background: #f3f8f4;
-      min-height: 64px;
-      line-height: 1.7;
-      color: #4f6f5d;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 0.9rem;
-      color: #6d8f7b;
-    }
-
-    @media (max-width: 640px) {
-      .login-card { padding: 28px 18px; }
-      .msg { max-width: 88%; }
-      input { min-width: 100%; }
-      .login-box { flex-direction: column; align-items: stretch; }
-    }
-  </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <section class="screen" id="loginScreen">
-    <div class="login-card">
-      <h1>Private Access Only 💌</h1>
-      <p>
-        This page is locked because someone very cute is supposed to open it.
-        Enter the password to get in.
-      </p>
 
-      <div class="login-box">
-        <input type="password" id="passwordInput" placeholder="Enter password" />
-        <button onclick="checkPassword()">Unlock ✨</button>
-      </div>
+<!-- LOGIN -->
 
-      <div>
-        <button class="hint-btn" onclick="showHint()">Need a hint?</button>
-      </div>
+<div id="login-screen" class="screen">
+  <div class="login-box">
+    <h1>Restricted Archive</h1>
 
-      <div class="hint-text" id="hintText"></div>
-      <div class="error-text" id="errorText"></div>
-      <div class="success-text" id="successText"></div>
-    </div>
-  </section>
+    <p>
+      Access to this collection is limited.
+    </p>
 
-  <section class="hidden-screen" id="mainContent">
-    <div class="container">
-      <div class="card hero">
-        <h1 id="nameTitle">Just a Little Something for You 💗</h1>
-        <p id="nameTyping" style="font-weight:bold; color:#6d8f7b; margin-top:6px;"></p>
-        <p>This is not for anything special. I just wanted to make something fun for you because I miss you and thought maybe this'd entertain you a bit xD and yea you are very easy to think about and very hard not to make cute things for.</p>
-        <div class="blur-wrap" style="margin-top:16px;">
-        <img id="sleep-img" src="sleep.jpg" class="blurred" alt="sleeping" style="width:100%; max-width:280px; border-radius:18px; margin-bottom:12px; object-fit:cover;" />
-        <div class="unlock-overlay" onclick="unlockPhoto('sleep')">tap to unlock</div>
-        </div>
-        <div id="note-sleep" style="display:none; margin-top:8px; color:#5e7a6a; font-size:0.9rem;"></div>
-        <button onclick="showSurprise()">Tap me ✨</button>
-        <p id="surprise"></p>
-      </div>
+    <input
+      type="password"
+      id="password"
+      placeholder="Archive Key"
+    >
 
-      <div class="card" style="text-align:center;">
-        <div class="blur-wrap">
-        <img id="nature-img" src="nature.jpg" class="blurred" alt="nature" style="width:100%; max-width:320px; border-radius:18px; object-fit:cover;" />
-        <div class="unlock-overlay" onclick="unlockPhoto('nature')">tap to unlock</div>
-      </div>
-        <div id="note-nature" style="display:none; margin-top:8px; color:#5e7a6a; font-size:0.9rem;"></div>
-      </div>
+    <button onclick="checkPassword()">
+      Enter Archive
+    </button>
 
-      <h2>Us in Texts 💬</h2>
-      <div class="card chat">
-        <div class="msg her">you know how much I love you, right?</div>
-        <div class="msg me">yeah... probably more than bottled water</div>
-        <div class="msg her">excuse me??? bottled water is important</div>
-        <div class="msg me">exactly. thats how serious this is</div>
-      </div>
+    <button class="hint-btn" onclick="showHint()">
+      Need a Hint?
+    </button>
 
-      <h2>Pick Your Category 🎀</h2>
-      <div class="card">
-        <p style="margin-top:0; text-align:center;">Click anything. Everything here is basically about you anyways.</p>
-        <div class="game-grid">
-          <button class="mini-btn" onclick="showResult('water')">Her starter pack 🚰</button>
-          <button class="mini-btn" onclick="showResult('line')">Best line ever 🥹</button>
-          <button class="mini-btn" onclick="showResult('cute')">Dangerously cute 💗</button>
-          <button class="mini-btn" onclick="showResult('dramatic')">Certified dramatic ☁️</button>
-          <button class="mini-btn" onclick="showResult('truth')">Important truth 👀</button>
-          <button class="mini-btn" onclick="showResult('bonus')">Bonus note ✨</button>
-        </div>
-        <div class="result-box" id="resultBox">Choose one and see what happens.</div>
-      </div>
+    <p id="hint"></p>
+    <p id="login-error"></p>
+  </div>
+</div>
 
-      <h2>Open When... (Multiple CLicks bb) 💌</h2>
+<!-- MAIN -->
 
-      <div class="card">
-        <button class="open-btn" onclick="nextOpen('one')">Open when you miss me</button>
-        <div id="one" class="hidden"></div>
-      </div>
+<div id="archive" class="hidden">
 
-      <div class="card">
-        <button class="open-btn" onclick="nextOpen('two')">Open when you are sad</button>
-        <div id="two" class="hidden"></div>
-      </div>
+<header>
 
-      <div class="card">
-        <button class="open-btn" onclick="nextOpen('three')">Open when you need reassurance</button>
-        <div id="three" class="hidden"></div>
-      </div>
+<h1 id="opening-line"></h1>
 
-      <h2>A Small Letter 💗</h2>
-      <div class="card">
-        this is random, just like this whole page. but i love you in the small things too. the bottled water thing, your line, your little habits. i notice them. and i love them.
-      </div>
+<div class="progress-wrap">
+  <span>Bookmarks Found:</span>
+  <span id="progress-count">0 / 10</span>
+</div>
 
-      <div class="card" style="text-align:center;">
-        <p style="margin:0 0 10px; color:#4f6f5d;">you are very easy to love, you know that right?</p>
-        <button class="hint-btn" onclick="secretPage()">dont click this</button>
-      </div>
+</header>
 
-      <div class="footer">made for you 💗</div>
-    </div>
-  </section>
+<!-- BOOKSHELF -->
 
-  <script>
-    const correctPassword = 'brag';
-    const names = ['Sanu', 'Sana'];
-    const openIndex = { one: 0, two: 0, three: 0 };
-    let audioCtx = null;
+<section class="bookshelf">
 
-    function pickName() {
-      return names[Math.floor(Math.random() * names.length)];
-    }
+<div class="book" onclick="openChapter('reader')">
+📖 The Reader
+</div>
 
-    const msgs = [
-      () => `i miss your "you know how much i love you, right?" line, ${pickName()} 🥹`,
-      () => `${pickName()}, you and bottled water are inseparable xD 🚰`,
-      () => `${pickName()}, you are actually so cutie its unfair when I don't get to look at you every second💗`,
-      () => `this exists because of you, ${pickName()}`
-    ];
+<div class="book" onclick="openChapter('reflection')">
+🚋 Reflection
+</div>
 
-    const results = {
-      water: 'Her starter pack: bottled water, cuteness, and acting like bottled water is a personality trait.',
-      line: 'I really do miss when you say "you know how much I love you, right?" It lives in my head rent free hehe.',
-      cute: 'You are unintentionally cute and I would love to spend the rest of my life looking at my bb.',
-      dramatic: 'Soft but dramatic. Cute but dangerous. Very you.',
-      truth: 'Actual truth: I made this because I love you way too much to be normal about it and I miss you so much that every moment you are not with me, all I think about is you, mero sanu.',
-      bonus: 'Bonus note: yes, bottled water is now part of your lore.'
-    };
+<div class="book" onclick="openChapter('nature')">
+🌿 Field Notes
+</div>
 
-    const openTexts = {
-      one: [
-        () => `i know you act fine sometimes, but i still wish i could just pull you closer for a minute, ${pickName()}.`,
-        () => `if you miss me, go look at the mountain for a second and pretend i asked you to. that counts as me being there with you, ${pickName()}.`,
-        () => 'missing someone is annoying, i know. but i kinda like that somewhere in your day, there is still a little piece of me, always, I believe.',
-        () => 'if i could, i would interrupt your whole day just to hug you and be like yeah okay enough, come here.',
-        () => `you never have to make the missing feel pretty for me, ${pickName()}. just miss me however you do, i'll still understand.`
-      ],
-      two: [
-        () => `you do not need to perform being okay with me, ${pickName()}. you can just be quiet and i'll still stay.`,
-        () => 'if today feels heavy, let it. you are allowed to have days that are not soft and easy bb.',
-        () => `i wish i could steal a little of your sadness just so you could breathe lighter for a while, ${pickName()}.`,
-        () => 'bad days do not make you difficult to love. they just make me want to hold you gentler.',
-        () => `rest first, explain later. or do not explain at all. i'm still on your side, ${pickName()}.`
-      ],
-      three: [
-        () => `you are not loved in a maybe way, ${pickName()}. you are loved in a very certain way.`,
-        () => 'i do not look at you and hesitate. i look at you and feel lucky.',
-        () => 'there is nothing small about what i feel for you, even when i say it in small quiet ways.',
-        () => 'in case your mind is being annoying again, here is the truth: i am still here and i still choose you and I love you.',
-        () => `you do not have to earn softness from me, ${pickName()}. you already have it.`
-      ]
-    };
+<div class="book" onclick="openChapter('stars')">
+⭐ Astronomical Incident
+</div>
 
-    function playSoftClick() {
-      try {
-        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(640, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.04, audioCtx.currentTime + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.12);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.12);
-      } catch (e) {
-        // ignore audio issues silently
-      }
-    }
+<div class="book" onclick="openChapter('vegetarian')">
+🥦 Vegetarian Findings
+</div>
 
-    function typeText(element, text, speed = 22) {
-      element.textContent = '';
-      let i = 0;
-      const timer = setInterval(() => {
-        element.textContent = text.slice(0, i + 1);
-        i += 1;
-        if (i >= text.length) {
-          clearInterval(timer);
-        }
-      }, speed);
-    }
+<div class="book" onclick="openChapter('michael')">
+🎬 The Michael Incident
+</div>
 
-    function showTyping(element) {
-      element.innerHTML = 'typing<span>.</span><span>.</span><span>.</span>';
-    }
+<div class="book" onclick="openChapter('goofy')">
+🤡 Unverified Reports
+</div>
 
-    function nextOpen(key) {
-      const el = document.getElementById(key);
-      const arr = openTexts[key];
-      const i = openIndex[key];
-      const text = arr[i]();
+<div class="book" onclick="openChapter('writing')">
+✍ Perspective
+</div>
 
-      el.style.display = 'block';
-      playSoftClick();
-      showTyping(el);
+<div class="book" onclick="openChapter('secret')">
+📑 Some Other Day
+</div>
 
-      setTimeout(() => {
-        typeText(el, text, 18);
-      }, 600);
+</section>
 
-      openIndex[key] = (i + 1) % arr.length;
-    }
+<!-- READER -->
 
-    function showResult(key) {
-      document.getElementById('resultBox').innerText = results[key];
-    }
+<section id="reader" class="chapter">
 
-    function showHint() {
-      document.getElementById('hintText').textContent = 'Hint: Not to .... about it.';
-    }
+<button class="back-btn" onclick="closeChapter('reader')">
+← Back
+</button>
 
-    function showSurprise() {
-      const fn = msgs[Math.floor(Math.random() * msgs.length)];
-      document.getElementById('surprise').innerText = fn();
-    }
+<h2>Bookmark #01 — The Reader</h2>
 
-    function getTimeMessage() {
-      const hour = new Date().getHours();
-      if (hour < 12) return 'good morning';
-      if (hour < 18) return 'good afternoon';
-      return 'good night';
-    }
+<img src="reading.jpg" class="chapter-img">
 
-    function typeNameLine() {
-      const el = document.getElementById('nameTyping');
-      const line = `${getTimeMessage()} ${pickName()}… you found it.`;
-      let i = 0;
-      const timer = setInterval(() => {
-        el.textContent = line.slice(0, i + 1);
-        i += 1;
-        if (i >= line.length) {
-          clearInterval(timer);
-        }
-      }, 35);
-    }
+<p>
+Most people wait for the tram.
 
-    function checkPassword() {
-      const input = document.getElementById('passwordInput').value.trim().toLowerCase();
-      const errorText = document.getElementById('errorText');
-      const successText = document.getElementById('successText');
+You apparently use that time
+to finish another chapter.
+</p>
 
-      errorText.textContent = '';
-      successText.textContent = '';
+<button onclick="readerNote()">
+Further Analysis
+</button>
 
-      if (input === correctPassword) {
-        successText.textContent = 'Access granted 💗';
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        setTimeout(typeNameLine, 120);
-      } else {
-        errorText.textContent = 'Ayeee Sanaaa... No way you got it Wrong.';
-      }
-    }
+<div id="reader-result"></div>
 
-    function unlockPhoto(type) {
-      const img = document.getElementById(type + '-img');
-      const overlay = img.nextElementSibling;
+</section>
 
-      img.classList.remove('blurred');
-      overlay.style.display = 'none';
+<!-- REFLECTION -->
 
-      showPhotoNote(type);
-    }
+<section id="reflection" class="chapter">
 
-    function showPhotoNote(type) {
-      const notes = {
-        sleep: 'you looked too peaceful here… i had to keep this 🥹',
-        nature: 'this one? yeah… this is my favorite version of you.'
-      };
+<button class="back-btn" onclick="closeChapter('reflection')">
+← Back
+</button>
 
-      const el = document.getElementById('note-' + type);
-      el.style.display = 'block';
-      typeText(el, notes[type], 18);
-    }
+<h2>Bookmark #02 — Reflection</h2>
 
-    function secretPage() {
-      document.body.innerHTML = `
-        <div style="min-height:100vh;display:flex;justify-content:center;align-items:center;padding:24px;font-family:Arial, Helvetica, sans-serif;background:linear-gradient(180deg, #eef5ef, #dfeadf, #f6faf6);color:#2f4f3e;">
-          <div style="background:rgba(255,255,255,0.92);padding:36px 28px;border-radius:28px;box-shadow:0 16px 40px rgba(0,0,0,0.08);text-align:center;max-width:620px;width:100%;">
-            <h1 style="margin-top:0;font-size:clamp(2rem,4vw,3rem);">I love you, ${pickName()}</h1>
-            <p style="line-height:1.8;color:#5e7a6a;">no jokes here. just this.</p>
-            <button onclick="location.reload()" style="border:none;padding:12px 18px;border-radius:999px;cursor:pointer;font-weight:bold;background:#7ea38b;color:white;box-shadow:0 8px 20px rgba(126,163,139,0.3);">go back</button>
-          </div>
-        </div>
-      `;
-    }
+<img src="reflection.jpg" class="chapter-img">
 
-    document.addEventListener('click', function (e) {
-      const heart = document.createElement('div');
-      heart.textContent = '💗';
-      heart.style.position = 'fixed';
-      heart.style.left = e.clientX + 'px';
-      heart.style.top = e.clientY + 'px';
-      heart.style.pointerEvents = 'none';
-      heart.style.fontSize = '18px';
-      heart.style.transform = 'translate(-50%, -50%)';
-      heart.style.opacity = '1';
-      heart.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
-      document.body.appendChild(heart);
+<p>
+The city was outside the window.
 
-      requestAnimationFrame(() => {
-        heart.style.transform = 'translate(-50%, -90px) scale(1.2)';
-        heart.style.opacity = '0';
-      });
+Somehow that wasn't
+what caught my attention.
+</p>
 
-      setTimeout(() => {
-        heart.remove();
-      }, 800);
-    });
+</section>
 
-    document.getElementById('passwordInput').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        checkPassword();
-      }
-    });
+<!-- NATURE -->
 
-    // Self-checks for browser console debugging.
-    console.assert(typeof checkPassword === 'function', 'checkPassword should exist');
-    console.assert(typeof nextOpen === 'function', 'nextOpen should exist');
-    console.assert(typeof secretPage === 'function', 'secretPage should exist');
-    console.assert(typeof typeNameLine === 'function', 'typeNameLine should exist');
-    console.assert(Array.isArray(openTexts.one) && openTexts.one.length === 5, 'openTexts.one should have 5 messages');
-    console.assert(Array.isArray(openTexts.two) && openTexts.two.length === 5, 'openTexts.two should have 5 messages');
-    console.assert(Array.isArray(openTexts.three) && openTexts.three.length === 5, 'openTexts.three should have 5 messages');
-    console.assert(openIndex.one === 0 && openIndex.two === 0 && openIndex.three === 0, 'openIndex should initialize correctly');
-    console.assert(results.truth.includes('I miss you so much'), 'truth result should keep your wording');
-    console.assert(correctPassword === 'brag', 'password should stay brag');
-  </script>
+<section id="nature" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('nature')">
+← Back
+</button>
+
+<h2>Bookmark #03 — Field Notes</h2>
+
+<img src="nature.jpg" class="chapter-img">
+
+<button onclick="nextNature()">
+Observe
+</button>
+
+<div id="nature-text"></div>
+
+</section>
+
+<!-- STARS -->
+
+<section id="stars" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('stars')">
+← Back
+</button>
+
+<h2>Astronomical Incident</h2>
+
+<button onclick="nextStarReport()">
+Open Report
+</button>
+
+<div id="star-report"></div>
+
+</section>
+
+<!-- VEGETARIAN -->
+
+<section id="vegetarian" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('vegetarian')">
+← Back
+</button>
+
+<h2>Vegetarian Research</h2>
+
+<button onclick="vegetarianFact()">
+Generate Report
+</button>
+
+<div id="veg-result"></div>
+
+</section>
+
+<!-- MICHAEL -->
+
+<section id="michael" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('michael')">
+← Back
+</button>
+
+<h2>The Michael Incident</h2>
+
+<button onclick="nextMichael()">
+Continue Investigation
+</button>
+
+<div id="michael-result"></div>
+
+</section>
+
+<!-- GOOFY -->
+
+<section id="goofy" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('goofy')">
+← Back
+</button>
+
+<h2>Unverified Reports</h2>
+
+<img src="goofy.jpg" class="chapter-img">
+
+<button onclick="goofyFact()">
+View Findings
+</button>
+
+<div id="goofy-result"></div>
+
+</section>
+
+<!-- WRITING -->
+
+<section id="writing" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('writing')">
+← Back
+</button>
+
+<h2>Perspective</h2>
+
+<p>
+I used to think writing needed a reason.
+</p>
+
+<button onclick="writingReveal()">
+Continue Reading
+</button>
+
+<div id="writing-result"></div>
+
+</section>
+
+<!-- HIDDEN PHOTO -->
+
+<section id="evidence" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('evidence')">
+← Back
+</button>
+
+<h2>Shared Evidence</h2>
+
+<img src="together.jpg" class="chapter-img">
+
+<p>
+Ah.
+
+There we were.
+</p>
+
+</section>
+
+<!-- SECRET PAGE -->
+
+<section id="secret" class="chapter">
+
+<button class="back-btn" onclick="closeChapter('secret')">
+← Back
+</button>
+
+<h2>Some Other Day</h2>
+
+<p id="secret-text">
+There are people who leave memories.
+
+There are people who leave thoughts.
+
+You somehow managed to leave both.
+</p>
+
+</section>
+
+<footer>
+
+<span onclick="unlockEvidence()" class="footer-secret">
+Where were we?
+</span>
+
+</footer>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
