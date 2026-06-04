@@ -220,10 +220,12 @@ I still do.
 
 function readerNote() {
 
-  const text =
-    readerNotes[Math.floor(Math.random() * readerNotes.length)];
+  const box = document.getElementById("reader-result");
 
-  document.getElementById("reader-result").textContent = text;
+  box.textContent =
+    readerNotes[
+      Math.floor(Math.random() * readerNotes.length)
+    ];
 
 }
 /* ---------- NATURE ---------- */
