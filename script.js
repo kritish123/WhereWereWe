@@ -52,7 +52,7 @@ const unsaidNotes = [
   "I still smile when I remember the seagull incident.",
   "You're surprisingly easy to miss.",
   "That might have been the problem.",
-  "I don't think you realise how often you end up in my writing.",
+  "I don't think you realize how often you end up in my writing.",
   "You're one of my favourite conversations."
 ];
 
