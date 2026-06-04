@@ -126,19 +126,29 @@ function showHint() {
 /* ---------- TYPEWRITER ---------- */
 
 function typeWriter(element, text, speed = 25) {
+
+  if(element.typingTimer){
+    clearInterval(element.typingTimer);
+  }
+
   element.textContent = "";
 
   let i = 0;
 
-  const timer = setInterval(() => {
+  element.typingTimer = setInterval(() => {
+
     element.textContent += text.charAt(i);
 
     i++;
 
-    if (i >= text.length) {
-      clearInterval(timer);
+    if(i >= text.length){
+
+      clearInterval(element.typingTimer);
+
     }
+
   }, speed);
+
 }
 
 /* ---------- CHAPTERS ---------- */
