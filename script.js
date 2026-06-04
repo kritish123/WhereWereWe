@@ -120,7 +120,7 @@ function checkPassword() {
 
 function showHint() {
   document.getElementById("hint").textContent =
-    "Hint: What Miss keeps calling you instead of your actual name.";
+    "Hint: What Miss keeps calling me instead of my actual name.";
 }
 
 /* ---------- TYPEWRITER ---------- */
