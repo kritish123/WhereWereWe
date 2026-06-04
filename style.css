@@ -4,12 +4,30 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#f6f1e7;
     color:#2f2a24;
     font-family:'Cormorant Garamond', serif;
     min-height:100vh;
     overflow-x:hidden;
+    position:relative;
+}
+
+/* PAPER TEXTURE */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+        radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+    background-size:12px 12px;
+    pointer-events:none;
+    opacity:.35;
 }
 
 /* LOGIN */
@@ -27,10 +45,10 @@ body{
     max-width:550px;
     background:#fffdf9;
     border:1px solid #d9cfbf;
-    border-radius:16px;
+    border-radius:18px;
     padding:40px;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
 }
 
 .login-box h1{
@@ -39,8 +57,8 @@ body{
 }
 
 .login-box p{
+    line-height:1.8;
     margin-bottom:15px;
-    line-height:1.7;
 }
 
 input{
@@ -48,9 +66,14 @@ input{
     padding:14px;
     border-radius:10px;
     border:1px solid #cbbda7;
+    background:#faf7f0;
     font-size:1rem;
     margin-bottom:15px;
-    background:#faf7f0;
+    outline:none;
+}
+
+input:focus{
+    border-color:#8a775e;
 }
 
 button{
@@ -58,16 +81,16 @@ button{
     border:none;
     padding:12px 18px;
     border-radius:10px;
-    margin:5px;
     background:#4e4337;
     color:white;
     font-size:1rem;
+    margin:5px;
     transition:.25s;
 }
 
 button:hover{
     transform:translateY(-2px);
-    opacity:.92;
+    opacity:.95;
 }
 
 .hint-btn{
@@ -80,8 +103,8 @@ button:hover{
 }
 
 #login-error{
-    color:#a04545;
     margin-top:10px;
+    color:#b54545;
 }
 
 .hidden{
@@ -91,19 +114,19 @@ button:hover{
 /* HEADER */
 
 header{
-    padding:50px 20px 30px;
     text-align:center;
+    padding:50px 20px 30px;
 }
 
 header h1{
+    font-family:'Special Elite', cursive;
     font-size:4rem;
     margin-bottom:20px;
-    font-family:'Special Elite', cursive;
 }
 
 .progress-wrap{
-    font-size:1.1rem;
-    opacity:.8;
+    opacity:.75;
+    font-size:1.05rem;
 }
 
 /* BOOKSHELF */
@@ -112,47 +135,66 @@ header h1{
     display:flex;
     justify-content:center;
     align-items:flex-end;
-    gap:10px;
-    padding:40px;
+    gap:12px;
     flex-wrap:wrap;
+    padding:40px;
 }
 
 .book{
-    width:70px;
-    height:260px;
-    background:#5b4636;
-    color:white;
+    width:75px;
+    height:270px;
     writing-mode:vertical-rl;
     text-orientation:mixed;
+
     display:flex;
     justify-content:center;
     align-items:center;
-    border-radius:6px 6px 0 0;
+
+    color:white;
     cursor:pointer;
-    font-size:1.1rem;
-    transition:.25s;
-    box-shadow:0 6px 15px rgba(0,0,0,.15);
+
+    border-radius:8px 8px 0 0;
+
+    font-size:1rem;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+    transition:
+    transform .25s ease,
+    box-shadow .25s ease;
 }
 
-.book:nth-child(2){ background:#6b5a47; }
-.book:nth-child(3){ background:#4b5d46; }
-.book:nth-child(4){ background:#404b61; }
-.book:nth-child(5){ background:#6c5c3e; }
+.book:nth-child(1){background:#5b4636;}
+.book:nth-child(2){background:#6b5a47;}
+.book:nth-child(3){background:#4b5d46;}
+.book:nth-child(4){background:#404b61;}
+.book:nth-child(5){background:#6c5c3e;}
+.book:nth-child(6){background:#5b4a65;}
+.book:nth-child(7){background:#71503f;}
+.book:nth-child(8){background:#3f4f5c;}
+.book:nth-child(9){background:#5a4650;}
+.book:nth-child(10){background:#73654e;}
 
 .book:hover{
-    transform:translateY(-10px);
+    transform:translateY(-12px);
+    box-shadow:0 18px 35px rgba(0,0,0,.22);
 }
 
 /* CHAPTERS */
 
 .chapter{
     display:none;
+
     max-width:850px;
     margin:40px auto;
+
     padding:35px;
+
     background:#fffdf9;
-    border-radius:20px;
+
     border:1px solid #ddd1be;
+    border-radius:20px;
+
     box-shadow:0 12px 25px rgba(0,0,0,.05);
 }
 
@@ -162,19 +204,18 @@ header h1{
 }
 
 .chapter h2{
-    font-size:2.5rem;
+    font-size:2.4rem;
     margin-bottom:20px;
 }
 
 .chapter p{
-    font-size:1.25rem;
     line-height:1.9;
-    margin-top:15px;
+    font-size:1.2rem;
 }
 
 .back-btn{
-    margin-bottom:20px;
     background:#84705b;
+    margin-bottom:20px;
 }
 
 .chapter-img{
@@ -183,6 +224,12 @@ header h1{
     object-fit:cover;
     border-radius:15px;
     margin:20px 0;
+
+    transition:.3s;
+}
+
+.chapter-img:hover{
+    transform:scale(1.01);
 }
 
 /* RESULT BOXES */
@@ -193,24 +240,83 @@ header h1{
 #veg-result,
 #michael-result,
 #goofy-result,
-#writing-result{
+#writing-result,
+#unsaid-result,
+#night-result{
+
     margin-top:20px;
+
     padding:20px;
+
+    min-height:70px;
+
     background:#f7f2e8;
+
     border-left:4px solid #8b7358;
+
     border-radius:10px;
-    min-height:60px;
+
     line-height:1.8;
     font-size:1.15rem;
 }
 
-/* SECRET */
+/* POLAROID SUPPORT */
 
-#secret-text{
-    font-size:1.4rem;
+.polaroid-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:20px;
+}
+
+.polaroid{
+    background:white;
+    padding:12px;
+    border-radius:8px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+    transform:rotate(-1deg);
+}
+
+.polaroid img{
+    width:100%;
+    border-radius:4px;
+}
+
+.polaroid p{
     text-align:center;
+    margin-top:10px;
+    font-size:1rem;
+}
+
+/* LIBRARY CARD */
+
+.library-card{
+    background:#f9f4ea;
+    border:2px dashed #a58c6d;
+    border-radius:15px;
+    padding:25px;
+    margin-top:20px;
+}
+
+.library-card h3{
+    font-size:2rem;
+    margin-bottom:15px;
+}
+
+.library-card ul{
+    padding-left:20px;
     line-height:2;
 }
+
+/* SECRET PAGE */
+
+#secret-text{
+    text-align:center;
+    font-size:1.4rem;
+    line-height:2;
+}
+
+/* FOOTER */
 
 footer{
     text-align:center;
@@ -228,30 +334,20 @@ footer{
     opacity:1;
 }
 
-/* PAPER EFFECT */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background-image:
-        radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
-    background-size:12px 12px;
-    pointer-events:none;
-    opacity:.4;
-}
-
 /* FADE */
 
 @keyframes fadeIn{
+
     from{
         opacity:0;
-        transform:translateY(15px);
+        transform:translateY(20px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 /* MOBILE */
@@ -259,24 +355,30 @@ body::before{
 @media(max-width:768px){
 
     header h1{
-        font-size:2.5rem;
+        font-size:2.4rem;
     }
 
     .chapter{
         margin:20px;
-        padding:20px;
+        padding:22px;
     }
 
     .chapter h2{
-        font-size:2rem;
+        font-size:1.9rem;
     }
 
     .chapter p{
-        font-size:1.1rem;
+        font-size:1.05rem;
     }
 
     .book{
-        font-size:1.1rem;
+        width:65px;
+        height:220px;
+        font-size:.95rem;
+    }
+
+    .login-box{
+        padding:30px 25px;
     }
 
 }
