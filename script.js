@@ -127,30 +127,25 @@ function showHint() {
 
 function typeWriter(element, text, speed = 25) {
 
-  if(element.typingTimer){
-    clearInterval(element.typingTimer);
-  }
-
-  element.textContent = "";
+  clearInterval(element.typingTimer);
 
   let i = 0;
 
+  element.textContent = "";
+
   element.typingTimer = setInterval(() => {
 
-    element.textContent += text.charAt(i);
-
-    i++;
-
-    if(i >= text.length){
-
+    if (i >= text.length) {
       clearInterval(element.typingTimer);
-
+      return;
     }
+
+    element.textContent += text[i];
+    i++;
 
   }, speed);
 
 }
-
 /* ---------- CHAPTERS ---------- */
 
 function openChapter(id) {
