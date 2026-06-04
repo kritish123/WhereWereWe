@@ -23,7 +23,8 @@ const natureNotes = [
   "Research suggests fresh air improves mood.",
   "Field observations remain ongoing.",
   "Nature appears to have gained a loyal customer.",
-  "Trees seem trusted."
+  "Trees seem trusted.",
+  "Some people collect souvenirs. You seem to collect moments."
 ];
 
 const vegNotes = [
@@ -43,6 +44,18 @@ const goofyNotes = [
   "No serious explanation currently exists."
 ];
 
+const unsaidNotes = [
+  "Sometimes I catch myself wanting to tell you things first.",
+  "I like hearing what you're thinking about.",
+  "You're one of the few people whose perspective genuinely changes mine.",
+  "Some people become part of your routine. You somehow became part of my thoughts.",
+  "I still smile when I remember the seagull incident.",
+  "You're surprisingly easy to miss.",
+  "That might have been the problem.",
+  "I don't think you realise how often you end up in my writing.",
+  "You're one of my favourite conversations."
+];
+
 const starReportSteps = [
   "Report Opened.",
   "Several stars identified in the distance.",
@@ -58,11 +71,22 @@ const michaelSteps = [
   "Movie watched again.",
   "Still the same movie.",
   "Researcher remains confused.",
-  "Case remains unresolved."
+  "Case remains unresolved.",
+  "Recommendation: watch it a third time."
+];
+
+const nightNotes = [
+  "Cities feel smaller when you're with the right person.",
+  "It was late enough that we probably should've gone home.",
+  "Neither of us seemed particularly interested in doing that.",
+  "Some walks end. Some stay in your head.",
+  "I still remember that night pretty clearly."
 ];
 
 let starIndex = 0;
 let michaelIndex = 0;
+let unsaidIndex = 0;
+let nightIndex = 0;
 
 /* ---------- LOGIN ---------- */
 
@@ -86,17 +110,19 @@ function checkPassword() {
 
 function showHint() {
   document.getElementById("hint").textContent =
-    "Hint: You call him this more often than his actual name.";
+    "Hint: What Miss keeps calling you instead of your actual name.";
 }
 
 /* ---------- TYPEWRITER ---------- */
 
-function typeWriter(element, text, speed = 30) {
+function typeWriter(element, text, speed = 25) {
   element.textContent = "";
+
   let i = 0;
 
   const timer = setInterval(() => {
     element.textContent += text.charAt(i);
+
     i++;
 
     if (i >= text.length) {
@@ -108,7 +134,6 @@ function typeWriter(element, text, speed = 30) {
 /* ---------- CHAPTERS ---------- */
 
 function openChapter(id) {
-
   document
     .querySelectorAll(".chapter")
     .forEach(ch => ch.classList.remove("active"));
@@ -136,14 +161,40 @@ function closeChapter(id) {
   });
 }
 
-/* ---------- BOOKMARK TRACKER ---------- */
+/* ---------- BOOKMARKS ---------- */
 
 function addBookmark(id) {
 
   bookmarksFound.add(id);
 
   document.getElementById("progress-count").textContent =
-    `${bookmarksFound.size} / 10`;
+    `${bookmarksFound.size} / 11`;
+
+  checkCompletion();
+}
+
+function checkCompletion() {
+
+  if (bookmarksFound.size >= 10) {
+
+    setTimeout(() => {
+
+      alert(
+`Archive Complete
+
+Conclusion:
+
+I liked spending time with you.
+
+I still do.
+
+— Fuchhey`
+      );
+
+    }, 500);
+
+  }
+
 }
 
 /* ---------- READER ---------- */
@@ -151,14 +202,11 @@ function addBookmark(id) {
 function readerNote() {
 
   const text =
-    readerNotes[
-      Math.floor(Math.random() * readerNotes.length)
-    ];
+    readerNotes[Math.floor(Math.random() * readerNotes.length)];
 
   typeWriter(
     document.getElementById("reader-result"),
-    text,
-    20
+    text
   );
 }
 
@@ -167,14 +215,11 @@ function readerNote() {
 function nextNature() {
 
   const text =
-    natureNotes[
-      Math.floor(Math.random() * natureNotes.length)
-    ];
+    natureNotes[Math.floor(Math.random() * natureNotes.length)];
 
   typeWriter(
     document.getElementById("nature-text"),
-    text,
-    20
+    text
   );
 }
 
@@ -183,14 +228,11 @@ function nextNature() {
 function vegetarianFact() {
 
   const text =
-    vegNotes[
-      Math.floor(Math.random() * vegNotes.length)
-    ];
+    vegNotes[Math.floor(Math.random() * vegNotes.length)];
 
   typeWriter(
     document.getElementById("veg-result"),
-    text,
-    20
+    text
   );
 }
 
@@ -199,14 +241,11 @@ function vegetarianFact() {
 function goofyFact() {
 
   const text =
-    goofyNotes[
-      Math.floor(Math.random() * goofyNotes.length)
-    ];
+    goofyNotes[Math.floor(Math.random() * goofyNotes.length)];
 
   typeWriter(
     document.getElementById("goofy-result"),
-    text,
-    20
+    text
   );
 }
 
@@ -214,13 +253,11 @@ function goofyFact() {
 
 function nextStarReport() {
 
-  const text =
-    starReportSteps[starIndex];
+  const text = starReportSteps[starIndex];
 
   typeWriter(
     document.getElementById("star-report"),
-    text,
-    25
+    text
   );
 
   starIndex++;
@@ -234,13 +271,11 @@ function nextStarReport() {
 
 function nextMichael() {
 
-  const text =
-    michaelSteps[michaelIndex];
+  const text = michaelSteps[michaelIndex];
 
   typeWriter(
     document.getElementById("michael-result"),
-    text,
-    25
+    text
   );
 
   michaelIndex++;
@@ -254,15 +289,13 @@ function nextMichael() {
 
 function writingReveal() {
 
-  const text = `
-Turns out sometimes the sentence arrives first.
+  const text = `Turns out sometimes the sentence arrives first.
 
 Meaning follows quietly behind it.
 
 And sometimes all it takes is someone saying:
 
-"Write something."
-`;
+"Write something."`;
 
   typeWriter(
     document.getElementById("writing-result"),
@@ -271,13 +304,51 @@ And sometimes all it takes is someone saying:
   );
 }
 
+/* ---------- UNSAID ---------- */
+
+function nextUnsaid() {
+
+  const text = unsaidNotes[unsaidIndex];
+
+  typeWriter(
+    document.getElementById("unsaid-result"),
+    text,
+    20
+  );
+
+  unsaidIndex++;
+
+  if (unsaidIndex >= unsaidNotes.length) {
+    unsaidIndex = 0;
+  }
+}
+
+/* ---------- LATE NIGHT ---------- */
+
+function nextNightNote() {
+
+  const text = nightNotes[nightIndex];
+
+  const el =
+    document.getElementById("night-result");
+
+  if (el) {
+    typeWriter(el, text);
+  }
+
+  nightIndex++;
+
+  if (nightIndex >= nightNotes.length) {
+    nightIndex = 0;
+  }
+}
+
 /* ---------- SECRET PHOTO ---------- */
 
 function unlockEvidence() {
 
-  const answer = confirm(
-    "Hidden bookmark discovered. Open?"
-  );
+  const answer =
+    confirm("Hidden bookmark discovered. Open?");
 
   if (answer) {
     openChapter("evidence");
@@ -301,7 +372,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-/* ---------- EASTER EGG ---------- */
+/* ---------- HEART EASTER EGG ---------- */
+
+document.addEventListener("click", function(e){
+
+  if(document.getElementById("archive").classList.contains("hidden")) return;
+
+  const heart = document.createElement("div");
+
+  heart.innerHTML = "✦";
+
+  heart.style.position = "fixed";
+  heart.style.left = e.clientX + "px";
+  heart.style.top = e.clientY + "px";
+  heart.style.pointerEvents = "none";
+  heart.style.transition = "all .8s ease";
+  heart.style.opacity = "1";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.style.transform = "translateY(-50px)";
+    heart.style.opacity = "0";
+  }, 10);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 800);
+
+});
+
+/* ---------- FOOTNOTE ---------- */
 
 let clicks = 0;
 
@@ -312,7 +413,11 @@ document.addEventListener("click", () => {
   if (clicks === 50) {
 
     alert(
-      "Footnote #3\n\nResearcher identity remains classified.\n\nStatus: Fuchhey."
+`Footnote #3
+
+Researcher identity remains classified.
+
+Status: Fuchhey.`
     );
 
   }
